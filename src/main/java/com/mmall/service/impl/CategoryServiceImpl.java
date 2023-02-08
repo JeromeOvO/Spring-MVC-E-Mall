@@ -21,8 +21,7 @@ import java.util.Set;
 /**
  * Created by 70457 on 1/25/2023.
  */
-@Service("ICategoryService")
-
+@Service("iCategoryService")
 public class CategoryServiceImpl implements ICategoryService{
 
 
