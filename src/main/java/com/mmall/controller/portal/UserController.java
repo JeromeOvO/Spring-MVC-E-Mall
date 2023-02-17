@@ -74,7 +74,7 @@ public class UserController {
             return ServerResponse.createBySuccess(user);
         }
 
-        return ServerResponse.createByErrorMessgae("User doesn't login, can't get user info");
+        return ServerResponse.createByErrorMessage("User doesn't login, can't get user info");
     }
 
 
@@ -102,7 +102,7 @@ public class UserController {
     public ServerResponse<String> resetPassword(HttpSession session, String passwordOld, String passwordNew){
         User user = (User)session.getAttribute(Const.CURRENT_USER);
         if(user == null){
-            return ServerResponse.createByErrorMessgae("User doesn't log in");
+            return ServerResponse.createByErrorMessage("User doesn't log in");
         }
 
         return iUserService.resetPassword(passwordOld, passwordNew, user);
@@ -113,7 +113,7 @@ public class UserController {
     public ServerResponse<User> update_information(HttpSession session, User user){
         User current_user = (User)session.getAttribute(Const.CURRENT_USER);
         if(current_user == null){
-            return ServerResponse.createByErrorMessgae("User doesn't log in");
+            return ServerResponse.createByErrorMessage("User doesn't log in");
         }
 
         user.setId(current_user.getId());

@@ -32,7 +32,7 @@ public class CategoryServiceImpl implements ICategoryService{
 
     public ServerResponse addCategory(String categoryName, Integer parentId){
         if(parentId == null || StringUtils.isBlank(categoryName)){
-            return ServerResponse.createByErrorMessgae("Add Category Error");
+            return ServerResponse.createByErrorMessage("Add Category Error");
         }
 
         Category category = new Category();
@@ -44,12 +44,12 @@ public class CategoryServiceImpl implements ICategoryService{
         if(rowCount > 0){
             return ServerResponse.createBySuccess("Add Category Successfully");
         }
-        return ServerResponse.createByErrorMessgae("Add Category Error");
+        return ServerResponse.createByErrorMessage("Add Category Error");
     }
 
     public ServerResponse updateCategoryName(Integer categoryId, String categoryName){
         if(categoryId == null || StringUtils.isBlank(categoryName)){
-            return ServerResponse.createByErrorMessgae("Update Category Parameter Error");
+            return ServerResponse.createByErrorMessage("Update Category Parameter Error");
         }
 
         Category category = new Category();
@@ -61,7 +61,7 @@ public class CategoryServiceImpl implements ICategoryService{
             return ServerResponse.createBySuccess("Update Category Name Successfully");
         }
         else{
-            return ServerResponse.createByErrorMessgae("Update Category Name Error");
+            return ServerResponse.createByErrorMessage("Update Category Name Error");
         }
     }
 

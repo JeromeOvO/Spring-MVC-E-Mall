@@ -45,7 +45,7 @@ public class CategoryManageController {
             return iCategoryService.addCategory(categoryName, parentId);
         }
         else{
-            return ServerResponse.createByErrorMessgae("No permission, need Admin");
+            return ServerResponse.createByErrorMessage("No permission, need Admin");
         }
     }
 
@@ -64,7 +64,7 @@ public class CategoryManageController {
             return iCategoryService.updateCategoryName(categoryId, categoryName);
         }
         else{
-            return ServerResponse.createByErrorMessgae("No permission, need Admin");
+            return ServerResponse.createByErrorMessage("No permission, need Admin");
         }
     }
 
@@ -83,7 +83,7 @@ public class CategoryManageController {
             return iCategoryService.getChildrenParallelCategory(categoryId);
         }
         else{
-            return ServerResponse.createByErrorMessgae("No permission, need Admin");
+            return ServerResponse.createByErrorMessage("No permission, need Admin");
         }
     }
 
@@ -103,7 +103,7 @@ public class CategoryManageController {
             return iCategoryService.selectCategoryAndChildrenById(categoryId);
         }
         else{
-            return ServerResponse.createByErrorMessgae("No permission, need Admin");
+            return ServerResponse.createByErrorMessage("No permission, need Admin");
         }
     }
 

@@ -54,18 +54,18 @@ public class ProductServiceImpl implements IProductService {
                 if(rowCount > 0){
                     return ServerResponse.createBySuccess("Update Product Successfully");
                 }
-                return ServerResponse.createByErrorMessgae("Update Product Failed");
+                return ServerResponse.createByErrorMessage("Update Product Failed");
             }
             else{
                 int rowCount = productMapper.insert(product);
                 if(rowCount > 0){
                     return ServerResponse.createBySuccess("Add Product Successfully");
                 }
-                return ServerResponse.createByErrorMessgae("Add Product Failed");
+                return ServerResponse.createByErrorMessage("Add Product Failed");
             }
         }
 
-        return ServerResponse.createByErrorMessgae("Add or Update Product parameter error");
+        return ServerResponse.createByErrorMessage("Add or Update Product parameter error");
     }
 
     public ServerResponse<String> setSalesStatus(Integer productId, Integer status){
@@ -81,7 +81,7 @@ public class ProductServiceImpl implements IProductService {
         if(rowCount > 0){
             return ServerResponse.createBySuccess("Modify Product Status Successfully");
         }
-        return ServerResponse.createByErrorMessgae("Modify Product Status Failed");
+        return ServerResponse.createByErrorMessage("Modify Product Status Failed");
     }
 
     public ServerResponse<ProductDetailVo> manageProductDetail(Integer productId){
@@ -90,7 +90,7 @@ public class ProductServiceImpl implements IProductService {
         }
         Product product = productMapper.selectByPrimaryKey(productId);
         if(product == null){
-            return ServerResponse.createByErrorMessgae("Product is offline or deleted");
+            return ServerResponse.createByErrorMessage("Product is offline or deleted");
         }
 
         //VO - Value Object
@@ -182,11 +182,11 @@ public class ProductServiceImpl implements IProductService {
         }
         Product product = productMapper.selectByPrimaryKey(productId);
         if(product == null){
-            return ServerResponse.createByErrorMessgae("Product is offline or deleted");
+            return ServerResponse.createByErrorMessage("Product is offline or deleted");
         }
 
         if(product.getStatus() != Const.ProductStatusEnum.ON_SALE.getCode()){
-            return ServerResponse.createByErrorMessgae("Product is offline or deleted");
+            return ServerResponse.createByErrorMessage("Product is offline or deleted");
         }
         //VO - Value Object
         ProductDetailVo productDetailVo = assembleProductDetailVo(product);

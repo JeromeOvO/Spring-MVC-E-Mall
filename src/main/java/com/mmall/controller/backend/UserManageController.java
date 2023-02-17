@@ -37,7 +37,7 @@ public class UserManageController {
                 return response;
             }
             else{
-                return ServerResponse.createByErrorMessgae("Not Administrator, Cannot Login");
+                return ServerResponse.createByErrorMessage("Not Administrator, Cannot Login");
             }
         }
         return response;

@@ -32,7 +32,7 @@ public class UserServiceImpl implements IUserService{
 
         int resultCount = userMapper.checkUsername(username);
         if(resultCount == 0){
-            return ServerResponse.createByErrorMessgae("User doesn't exit");
+            return ServerResponse.createByErrorMessage("User doesn't exit");
         }
 
 
@@ -41,7 +41,7 @@ public class UserServiceImpl implements IUserService{
         //password login MD5 Encrpyted
         User user= userMapper.selectLogin(username, md5Password);
         if(user == null){
-            return ServerResponse.createByErrorMessgae("Password Error");
+            return ServerResponse.createByErrorMessage("Password Error");
         }
 
         user.setPassword(org.apache.commons.lang3.StringUtils.EMPTY);
@@ -65,7 +65,7 @@ public class UserServiceImpl implements IUserService{
 
         int resultCount = userMapper.insert(user);
         if(resultCount == 0){
-            return ServerResponse.createByErrorMessgae("Regist Failed");
+            return ServerResponse.createByErrorMessage("Regist Failed");
         }
 
         return ServerResponse.createBySuccessMessage("Regist succeeded");
@@ -78,19 +78,19 @@ public class UserServiceImpl implements IUserService{
             if(Const.USERNAME.equals(type)){
                 int resultCount = userMapper.checkUsername(str);
                 if(resultCount > 0){
-                    return ServerResponse.createByErrorMessgae("Usernames Exist");
+                    return ServerResponse.createByErrorMessage("Usernames Exist");
                 }
             }
 
             if(Const.EMAIL.equals(type)){
                 int resltCount = userMapper.checkEmail(str);
                 if(resltCount > 0){
-                    return ServerResponse.createByErrorMessgae("Emails Exist");
+                    return ServerResponse.createByErrorMessage("Emails Exist");
                 }
             }
         }
         else{
-            return ServerResponse.createByErrorMessgae("Parameter Error");
+            return ServerResponse.createByErrorMessage("Parameter Error");
         }
 
         return ServerResponse.createBySuccessMessage("Check Succeeded");
@@ -100,14 +100,14 @@ public class UserServiceImpl implements IUserService{
         ServerResponse validResponse = this.checkValid(username, Const.USERNAME);
         //用户不存在是成功response
         if(validResponse.isSuccess()){
-            return ServerResponse.createByErrorMessgae("User doesn't Exist");
+            return ServerResponse.createByErrorMessage("User doesn't Exist");
         }
 
         String question = userMapper.selectQuestionByUsername(username);
         if(org.apache.commons.lang3.StringUtils.isNotBlank(question)){
             return ServerResponse.createBySuccess(question);
         }
-        return ServerResponse.createByErrorMessgae("Question for finding lost password is empty");
+        return ServerResponse.createByErrorMessage("Question for finding lost password is empty");
     }
 
     public ServerResponse<String> checkAnswer(String username, String question, String answer){
@@ -117,23 +117,23 @@ public class UserServiceImpl implements IUserService{
             TokenCache.setKey(TokenCache.TOKEN_PREFIX + username, forgetToken);
             return ServerResponse.createBySuccess(forgetToken);
         }
-        return ServerResponse.createByErrorMessgae("Answer to the question error");
+        return ServerResponse.createByErrorMessage("Answer to the question error");
     }
 
     public ServerResponse<String> forgetResetPassword(String username, String passwordNew, String forgetToken){
         if(org.apache.commons.lang3.StringUtils.isBlank(forgetToken)){
-            return ServerResponse.createByErrorMessgae("Parameter Error, Token is needed");
+            return ServerResponse.createByErrorMessage("Parameter Error, Token is needed");
         }
 
         ServerResponse validResponse = this.checkValid(username, Const.USERNAME);
         if(validResponse.isSuccess()){
-            return ServerResponse.createByErrorMessgae("User doesn't Exist");
+            return ServerResponse.createByErrorMessage("User doesn't Exist");
         }
 
         String token = TokenCache.getKey(TokenCache.TOKEN_PREFIX + username);
 
         if(org.apache.commons.lang3.StringUtils.isBlank(token)){
-            return ServerResponse.createByErrorMessgae("Token is invalid or expired");
+            return ServerResponse.createByErrorMessage("Token is invalid or expired");
         }
 
         if(org.apache.commons.lang3.StringUtils.equals(token, forgetToken)){
@@ -145,33 +145,33 @@ public class UserServiceImpl implements IUserService{
             }
         }
         else{
-            return ServerResponse.createByErrorMessgae("Token Error, Please get token for updating password again");
+            return ServerResponse.createByErrorMessage("Token Error, Please get token for updating password again");
         }
 
-        return ServerResponse.createByErrorMessgae("Password Modification Failed");
+        return ServerResponse.createByErrorMessage("Password Modification Failed");
     }
 
     public ServerResponse<String> resetPassword(String passwordOld, String passwordNew, User user){
         //防止很横向越权，需要校验用户的旧密码，需要查询一个count，不指定id，count必然大于0
         int resultCount = userMapper.checkPassword(MD5Util.MD5EncodeUtf8(passwordOld), user.getId());
         if(resultCount == 0){
-            return ServerResponse.createByErrorMessgae("Old Password Error");
+            return ServerResponse.createByErrorMessage("Old Password Error");
         }
 
         user.setPassword(MD5Util.MD5EncodeUtf8(passwordNew));
         int updateCount = userMapper.updateByPrimaryKeySelective(user);
         if(updateCount > 0){
-            return ServerResponse.createByErrorMessgae("Update Password Successfully");
+            return ServerResponse.createByErrorMessage("Update Password Successfully");
         }
 
-        return ServerResponse.createByErrorMessgae("Update Password Failed");
+        return ServerResponse.createByErrorMessage("Update Password Failed");
     }
 
     public ServerResponse<User> updateInformation(User user){
         //username 不能被更新，email需要校验，校验新的email是否存在，若存在，不能是当前用户的
         int resultCount = userMapper.checkEmailByUserId(user.getEmail(), user.getId());
         if(resultCount > 0){
-            return ServerResponse.createByErrorMessgae("Email exists, please change email");
+            return ServerResponse.createByErrorMessage("Email exists, please change email");
         }
 
         User updateUser = new User();
@@ -186,13 +186,13 @@ public class UserServiceImpl implements IUserService{
             return ServerResponse.createBySuccess("Information Update Successfully", updateUser);
         }
 
-        return ServerResponse.createByErrorMessgae("Information Update Failed");
+        return ServerResponse.createByErrorMessage("Information Update Failed");
     }
 
     public ServerResponse<User> getInformation(Integer userId){
         User user = userMapper.selectByPrimaryKey(userId);
         if(user == null){
-            return ServerResponse.createByErrorMessgae("CurrentUser doesn't exist");
+            return ServerResponse.createByErrorMessage("CurrentUser doesn't exist");
         }
 
         user.setPassword(org.apache.commons.lang3.StringUtils.EMPTY);

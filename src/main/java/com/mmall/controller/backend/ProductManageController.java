@@ -48,7 +48,7 @@ public class ProductManageController {
             return iProductService.saveOnUpdateProduct(product);
         }
         else{
-            return ServerResponse.createByErrorMessgae("User cannot access");
+            return ServerResponse.createByErrorMessage("User cannot access");
         }
     }
 
@@ -65,7 +65,7 @@ public class ProductManageController {
             return iProductService.setSalesStatus(productId, status);
         }
         else{
-            return ServerResponse.createByErrorMessgae("User cannot access");
+            return ServerResponse.createByErrorMessage("User cannot access");
         }
     }
 
@@ -81,7 +81,7 @@ public class ProductManageController {
             return iProductService.manageProductDetail(productId);
         }
         else{
-            return ServerResponse.createByErrorMessgae("User cannot access");
+            return ServerResponse.createByErrorMessage("User cannot access");
         }
     }
 
@@ -97,7 +97,7 @@ public class ProductManageController {
             return iProductService.getProductList(pageNum, pageSize);
         }
         else{
-            return ServerResponse.createByErrorMessgae("User cannot access");
+            return ServerResponse.createByErrorMessage("User cannot access");
         }
     }
 
@@ -113,7 +113,7 @@ public class ProductManageController {
             return iProductService.searchProduct(productName, productId, pageNum, pageSize);
         }
         else{
-            return ServerResponse.createByErrorMessgae("User cannot access");
+            return ServerResponse.createByErrorMessage("User cannot access");
         }
     }
 
@@ -137,7 +137,7 @@ public class ProductManageController {
             return ServerResponse.createBySuccess(fileMap);
         }
         else{
-            return ServerResponse.createByErrorMessgae("User cannot access");
+            return ServerResponse.createByErrorMessage("User cannot access");
         }
     }
 
