@@ -48,4 +48,95 @@ public class Const {
             return code;
         }
     }
+
+    public enum OrderStatusEnum{
+        CANCELED(0, "Canceled"),
+        NO_PAY(10, "No Pay"),
+        PAID(20, "Paid"),
+        SHIPPED(40, "Shipped"),
+        ORDER_SUCCESS(50, "Order Success"),
+        ORDER_CLOSED(60, "Order Closed");
+
+        OrderStatusEnum(int code, String value){
+            this.code = code;
+            this.value = value;
+        }
+
+        private String value;
+        private int code;
+
+        public String getValue() {
+            return value;
+        }
+
+        public int getCode() {
+            return code;
+        }
+
+        public static OrderStatusEnum codeOf(int code){
+            for(OrderStatusEnum orderStatusEnum : values()){
+                if(orderStatusEnum.getCode() == code){
+                    return orderStatusEnum;
+                }
+            }
+            throw  new RuntimeException("Can't recording Example");
+        }
+    }
+
+    public interface AlipayCallback{
+        String TRADE_STATUS_WAIT_BUYER_PAY = "WAIT_BUYER_PAY";
+        String TRADE_STATUS_TRADE_SUCCESS = "TRADE_SUCCESS";
+
+        String RESPONSE_SUCCESS = "success";
+        String RESPONSE_FAILED = "failed";
+    }
+
+    public enum PayPlatformEnum{
+        ALIPAY(1, "Alipay");
+
+        PayPlatformEnum(int code, String value){
+            this.code = code;
+            this.value = value;
+        }
+
+        private String value;
+        private int code;
+
+        public String getValue() {
+            return value;
+        }
+
+        public int getCode() {
+            return code;
+        }
+    }
+
+    public enum PaymentTpyeEnum{
+        ONLINE_PAY(1, "Online Pay");
+
+        PaymentTpyeEnum(int code, String value){
+            this.code = code;
+            this.value = value;
+        }
+
+        private String value;
+        private int code;
+
+        public String getValue() {
+            return value;
+        }
+
+        public int getCode() {
+            return code;
+        }
+
+        public static PaymentTpyeEnum codeOf(int code){
+            for(PaymentTpyeEnum paymentTpyeEnum : values()){
+                if(paymentTpyeEnum.getCode() == code){
+                    return paymentTpyeEnum;
+                }
+            }
+            throw  new RuntimeException("Can't recording Example");
+        }
+    }
 }
